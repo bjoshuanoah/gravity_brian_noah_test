@@ -1,5 +1,7 @@
-function getPossibleWords (number_array, callback) {
+function getPossibleWords (numbers, callback) {
     var t9_list = {
+            0: [],
+            1: [],
             2: ['a', 'b', 'c'],
             3: ['d','e','f'],
             4: ['g','h','i'],
@@ -8,43 +10,50 @@ function getPossibleWords (number_array, callback) {
             7: ['p','q','r','s'],
             8: ['t','u','v'],
             9: ['w','x','y','z'],
-        };
-    var word_obj = {};
-    word_array = []
-    var letter_array = [];
-    console.log(number_array.length);
-    for (var i = 0; i < number_array.length; i++) {
-        possible_letter_array = t9_list[number_array[i]];
-        if (word_array.length === 0) {
-            for (var _i = 0; _i < possible_letter_array.length; _i++) {
-                word_obj[_i] = possible_letter_array[_i];
-            }
-            for (key in word_obj) {
-                word_array.push(word_obj[key]);
-            }
-        } else {
-            for (key in word_obj) {
-                word_obj[key] = {i: word_obj.key};
-            }
-            for (var _i = 0; _i < possible_letter_array.length; _i++) {
-                var _e = _i;
-                for (key in word_obj) {
+        },
+        number_array = numbers.split(''),
+        letters_obj = {},
+        word_array = [],
+        first_letters = t9_list[number_array[0]];
 
-                    // word_obj[key][_i] =
+        if (number_array.length === 1) {
+            word_array = t9_list[number_array[0]];
+        } else {
+            for (i = 0; i < first_letters.length; i++) {
+                var letter = first_letters[i];
+                letters_obj[letter] = [letter];
+            }
+            console.log(letters_obj);
+            for (key in letters_obj) {
+                var letter_array = letters_obj[key];
+                console.log(letter_array);
+                console.log('first_letter', key);
+                for (_n = 0; _n < number_array.length; _n++) {
+                    var nth_letters = t9_list[number_array[_n]];
+                    for (_a = 0; _a < letter_array.length; _a++) {
+                        word = letter_array[_a];
+                        console.log(word);
+                        console.log(nth_letters.letter_array.length);
+                        // for (_i = 0; _i < nth_letters.length; _i++) {
+                        //     var letter = nth_letters[_i];
+                        //     console.log(word + letter);
+                        //     letter_array.push(word + letter);
+                        // }
+                    }
+                }
+                for (_o = 0; _o < letter_array.length; _o++) {
+                    if (letter_array[_o].length < number_array.length) {
+                        word_array.push(letter_array[_o]);
+                    }
                 }
             }
-            console.log(word_obj);
-            for (key in word_obj) {
-                word_array.push(word_obj[key]);
-            }
         }
-    }
     callback(word_array);
 }
 
 function t9 ($scope) {
 
-    var current_word_numbers = [];
+    var numbers = '';
     $scope.words = [];
     $scope.message = '';
     $scope.handleNumber = function (e) {
@@ -52,15 +61,15 @@ function t9 ($scope) {
             number = $this.attr('data-number'),
             i;
         if (number !== '1' && number !== '0') {
-            current_word_numbers.push(number);
-            getPossibleWords(current_word_numbers, function (words) {
+            numbers += number;
+            getPossibleWords(numbers, function (words) {
                 $scope.words = words;
             });
         } else if (number === '0') {
             console.log(number);
             $scope.message += ' ';
             $scope.words = [];
-            current_word_numbers = [];
+            numbers = '';
         } else {
             return;
         }
@@ -70,5 +79,6 @@ function t9 ($scope) {
             word = $this.attr('data-word');
             $scope.message += ' ' + word;
             $scope.words = [];
+            numbers = '';
     };
 }

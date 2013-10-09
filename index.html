@@ -10,7 +10,7 @@
       <h1>{{message}}</h1>
       <hr>
       <div class="word_chooser" ng-repeat="word in words">
-          <div class="word_choice" ng-click="selectWord($event)" data-word="{{word.word}}">{{word}}</div>
+          <div class="word_choice" ng-click="selectWord($event)" data-word="{{word}}">{{word}}</div>
       </div>
       <button class="number" ng-click="handleNumber($event)" data-number="1">1</button>
       <button class="number" ng-click="handleNumber($event)" data-number="2">2-abc</button>
