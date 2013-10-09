@@ -56,6 +56,7 @@ function t9 ($scope) {
         if (number !== '1' && number !== '0') {
             numbers += number;
             $scope.words = getPossibleWords(numbers);
+            // can also be used with a callback
             // getPossibleWords(numbers, function (words) {
             //     $scope.words = words;
             // });
