@@ -1,0 +1,27 @@
+<!doctype html>
+<html ng-app>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
+    <script src="t9.js"></script>
+  </head>
+  <body>
+    <div ng-controller="t9">
+      <h1>{{message}}</h1>
+      <hr>
+      <div class="word_chooser" ng-repeat="word in words">
+          <div class="word_choice" ng-click="selectWord($event)" data-word="{{word.word}}">{{word}}</div>
+      </div>
+      <button class="number" ng-click="handleNumber($event)" data-number="1">1</button>
+      <button class="number" ng-click="handleNumber($event)" data-number="2">2-abc</button>
+      <button class="number" ng-click="handleNumber($event)" data-number="3">3-def</button>
+      <button class="number" ng-click="handleNumber($event)" data-number="4">4-ghi</button>
+      <button class="number" ng-click="handleNumber($event)" data-number="5">5-jkl</button>
+      <button class="number" ng-click="handleNumber($event)" data-number="6">6-mno</button>
+      <button class="number" ng-click="handleNumber($event)" data-number="7">7-pqrs</button>
+      <button class="number" ng-click="handleNumber($event)" data-number="8">8-tuv</button>
+      <button class="number" ng-click="handleNumber($event)" data-number="9">9-wxyz</button>
+      <button class="number" ng-click="handleNumber($event)" data-number="0">0 _</button>
+    </div>
+  </body>
+</html>
