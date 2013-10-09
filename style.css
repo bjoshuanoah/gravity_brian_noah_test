@@ -1,0 +1,45 @@
+body {
+	background: #999;
+	color: #fff;
+	 -webkit-user-select: none;
+}
+
+button {
+	width:100%;
+	height:80px;
+	font-size: 1.2em;
+}
+.message {
+	background: rgb(187,187,187);
+	padding:30px;
+	min-height:150px;
+	position: relative;
+}
+h1 {
+	margin: 0;
+}
+
+.word_chooser_container {
+	height: 100%;
+	width: 100%;
+	overflow: auto;
+	top: 0;
+	left: 0;
+	position: absolute;
+	background: rgba(0,0,0,0.4);
+}
+.word_chooser_container:empty {
+	height: 0;
+	width: 0;
+}
+.word_chooser {
+	display: inline-block;
+	background: rgb(195,195,195);
+	padding: 5px;
+	margin: 5px 2px;
+	cursor: pointer;
+}
+
+.buttons {
+	margin-top:35px;
+}

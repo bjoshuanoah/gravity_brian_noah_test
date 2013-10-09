@@ -16,38 +16,38 @@ function getPossibleWords (numbers, callback) {
         word_array = [],
         first_letters = t9_list[number_array[0]];
 
-        if (number_array.length === 1) {
-            word_array = t9_list[number_array[0]];
-        } else {
-            for (i = 0; i < first_letters.length; i++) {
-                var letter = first_letters[i];
-                letters_obj[letter] = [letter];
-            }
-            console.log(letters_obj);
-            for (key in letters_obj) {
-                var letter_array = letters_obj[key];
-                console.log(letter_array);
-                console.log('first_letter', key);
-                for (_n = 0; _n < number_array.length; _n++) {
-                    var nth_letters = t9_list[number_array[_n]];
-                    for (_a = 0; _a < letter_array.length; _a++) {
-                        word = letter_array[_a];
-                        console.log(word);
-                        console.log(nth_letters.letter_array.length);
-                        // for (_i = 0; _i < nth_letters.length; _i++) {
-                        //     var letter = nth_letters[_i];
-                        //     console.log(word + letter);
-                        //     letter_array.push(word + letter);
-                        // }
+    if (number_array.length === 1) {
+        word_array = t9_list[number_array[0]];
+    } else {
+        for (i = 0; i < first_letters.length; i++) {
+            var letter = first_letters[i];
+            letters_obj[letter] = [letter];
+        }
+        for (key in letters_obj) {
+            var word_index_array = letters_obj[key],
+                word_index_array_max = 1;
+            for (_n = 1; _n < number_array.length; _n++) {
+                var nth_letters = t9_list[number_array[_n]],
+                    arr = [];
+                word_index_array_max = word_index_array_max * nth_letters.length;
+                for (_a = 0; _a < word_index_array.length; _a++) {
+                    word = word_index_array[_a];
+                    for (_i = 0; _i < nth_letters.length; _i++) {
+                        var letter = nth_letters[_i];
+                        if (word_index_array.length <= word_index_array_max) {
+                            arr.push(word + letter);
+                        }
                     }
                 }
-                for (_o = 0; _o < letter_array.length; _o++) {
-                    if (letter_array[_o].length < number_array.length) {
-                        word_array.push(letter_array[_o]);
-                    }
+                word_index_array = arr;
+            }
+            for (_o = 0; _o < word_index_array.length; _o++) {
+                if (word_index_array[_o].length === number_array.length) {
+                    word_array.push(word_index_array[_o]);
                 }
             }
         }
+    }
     callback(word_array);
 }
 
@@ -66,12 +66,13 @@ function t9 ($scope) {
                 $scope.words = words;
             });
         } else if (number === '0') {
-            console.log(number);
             $scope.message += ' ';
             $scope.words = [];
             numbers = '';
         } else {
-            return;
+            $scope.message = '';
+            $scope.words = [];
+            numbers = '';
         }
     };
     $scope.selectWord = function (e) {
