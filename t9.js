@@ -1,16 +1,5 @@
 function getPossibleWords (numbers, callback) {
-    var t9_list = {
-            0: [],
-            1: [],
-            2: ['a', 'b', 'c'],
-            3: ['d','e','f'],
-            4: ['g','h','i'],
-            5: ['j','k','l'],
-            6: ['m','n','o'],
-            7: ['p','q','r','s'],
-            8: ['t','u','v'],
-            9: ['w','x','y','z'],
-        },
+    var t9_list = {0: [],1: [],2: ['a', 'b', 'c'],3: ['d','e','f'],4: ['g','h','i'],5: ['j','k','l'],6: ['m','n','o'],7: ['p','q','r','s'],8: ['t','u','v'],9: ['w','x','y','z']},
         number_array = numbers.split(''),
         letters_obj = {},
         word_array = [],
@@ -48,7 +37,11 @@ function getPossibleWords (numbers, callback) {
             }
         }
     }
-    callback(word_array);
+    if (typeof callback === 'function') {
+        callback(word_array);
+    } else {
+        return word_array;
+    }
 }
 
 function t9 ($scope) {
@@ -62,9 +55,10 @@ function t9 ($scope) {
             i;
         if (number !== '1' && number !== '0') {
             numbers += number;
-            getPossibleWords(numbers, function (words) {
-                $scope.words = words;
-            });
+            $scope.words = getPossibleWords(numbers);
+            // getPossibleWords(numbers, function (words) {
+            //     $scope.words = words;
+            // });
         } else if (number === '0') {
             $scope.message += ' ';
             $scope.words = [];
